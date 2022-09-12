@@ -1,0 +1,22 @@
+-f https://download.pytorch.org/whl/cu113/torch_stable.html
+black==22.3.0
+click==8.0.4
+h5py==3.6.0
+importlib_metadata==4.11.2
+ipython==8.1.0
+mypy==0.931
+numpy==1.22.2
+pipreqs==0.4.11
+pre-commit==2.17.0
+pymongo==4.0.1
+pytest==7.0.1
+pytest-cov==3.0.0
+pytorch-lightning==1.5.10
+PyYAML==6.0
+scikit-learn==1.0.2
+setuptools==59.5.0
+torch==1.10.2+cu113
+torchaudio==0.10.2+cu113
+torchvision==0.11.3+cu113
+tqdm==4.63.0
+transformers==3.4.0

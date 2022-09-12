@@ -1,0 +1,12 @@
+name: password_generation
+channels:
+  - defaults
+  - conda-forge
+  - pytorch
+dependencies:
+  - python>=3.8
+  - pip
+  # BASICS
+  - pip:
+      - -r requirements.txt
+      - -e .  # install git checkout of key2med in editable mode

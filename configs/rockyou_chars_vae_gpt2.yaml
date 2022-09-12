@@ -1,0 +1,89 @@
+run: &RUN_NAME rockyou_gpt2_vae
+
+data_path: &DATA_PATH ~/password_generation/data/rockyou.txt
+logging_dir: &LOGGING_DIR ~/password_generation/logging/
+checkpoints_dir: &CHECKPOINTS_DIR ~/password_generation/checkpoints/
+batch_size: &BATCH_SIZE 128
+max_epochs: &MAX_EPOCHS 20
+max_size: &MAX_SIZE null
+in_memory: &IN_MEMORY True
+use_cache: &USE_CACHE True
+learning_rate: &LEARNING_RATE 1.0
+
+
+model_checkpoints:
+  save_checkpoints: True
+  best_model_metric: valid/loss
+  checkpoints_dir: *CHECKPOINTS_DIR
+
+sample_passwords:
+  compare_with: ['valid', 'test']
+  num_samples: 10_000_000
+  sample_every: 2
+  min_epoch: 1
+  batch_size: *BATCH_SIZE
+  num_log_samples: 20
+
+dataloader:
+  module: password_generation.data.dataloaders
+  class: TokenizedTextDataLoader
+  args:
+    data_path: *DATA_PATH
+    tokenizer_config:
+      module: password_generation.tokenizers.char_tokenizer
+      class: CharTokenizer
+      args: {}
+    filter_config: null
+    max_sequence_length: 14
+    batch_size: *BATCH_SIZE
+    use_cache: *USE_CACHE
+    in_memory: *IN_MEMORY
+    max_size: *MAX_SIZE
+    num_workers: 2
+    drop_last: True
+    shuffle: True
+
+model:
+  module: password_generation.models.autoencoders
+  class: VAE
+  args:
+    # model_weights: "/path/to/trained/model"
+    latent_dim: 256
+    embedding_dim: 256
+    min_logvar: -20
+    encoder:
+      module: password_generation.blocks.transformer_blocks
+      class: GPT2Encoder
+      args:
+        n_head: 4
+        n_layer: 4
+    decoder:
+      module: password_generation.blocks.transformer_blocks
+      class: GPT2Decoder
+      args:
+        n_head: 4
+        n_layer: 4
+    learning_rate: *LEARNING_RATE
+    learning_rate_scheduler:
+      module: torch.optim.lr_scheduler
+      class: StepLR
+      args:
+        gamma: 0.5
+        step_size: 1
+        verbose: true
+        # pl args
+        interval: epoch
+        frequency: 1
+        monitor: train/loss
+    parameter_schedulers:
+      beta:
+        module: password_generation.utils.param_scheduler
+        class: ExponentialScheduler
+        args:
+          max_value: 1.0
+          max_steps: 12500
+          decay_rate: 0.025
+
+trainer:
+  args:
+    max_epochs: *MAX_EPOCHS

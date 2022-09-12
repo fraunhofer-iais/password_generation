@@ -1,0 +1,47 @@
+exclude: '^docs/conf.py'
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.4.0
+    hooks:
+      - id: trailing-whitespace
+      - id: check-added-large-files
+      - id: check-ast
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-xml
+      - id: check-yaml
+        args: ['--unsafe']
+      - id: debug-statements
+      - id: end-of-file-fixer
+      - id: requirements-txt-fixer
+      - id: mixed-line-ending
+        args: [ '--fix=auto' ]  # replace 'auto' with 'lf' to enforce Linux/Mac line endings or 'crlf' for Windows
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.7.0
+    hooks:
+      - id: isort
+        args: [ "--profile", "black", "--filter-files" ]
+
+  - repo: https://github.com/psf/black
+    rev: 22.3.0
+    hooks:
+      - id: black
+        language_version: python3
+        args: [ "--line-length", "120"]
+
+#  - repo: https://gitlab.com/pycqa/flake8
+#    rev: 3.8.4
+#    hooks:
+#      - id: flake8
+#        additional_dependencies:
+#          - flake8-black>=0.1.1
+#        language_version: python3
+#        args: [ "--max-line-length", "120",
+#        "--extend-ignore", "F401, BLK100, E203, W503, F403, F405"]
+
+#- repo: https://github.com/pre-commit/mirrors-mypy
+#  rev: ''  # Use the sha / tag you want to point at
+#  hooks:
+#    - id: mypy
