@@ -2,6 +2,7 @@
 black==22.3.0
 click==8.0.4
 h5py==3.6.0
+humanize
 importlib_metadata==4.11.2
 ipython==8.1.0
 mypy==0.931
@@ -20,3 +21,4 @@ torchaudio==0.10.2+cu113
 torchvision==0.11.3+cu113
 tqdm==4.63.0
 transformers==3.4.0
+wandb

@@ -53,13 +53,13 @@ def run_config(config: Dict, args: argparse.Namespace) -> None:
 
     callbacks = init_callbacks(config, run_name, dataloader)
 
+    logging_dir = config["logging"]["logging_dir"]
+    os.makedirs(logging_dir, exist_ok=True)
     if config["logging"].get("use_wandb", True):
-        train_logger = WandbLogger(
-            project="password_generation", group=run_name, save_dir=config["logging"]["logging_dir"]
-        )
+        train_logger = WandbLogger(project="password_generation", group=run_name, save_dir=logging_dir)
         train_logger.experiment.config.update(config)
     else:
-        train_logger = TensorBoardLogger(name=run_name, save_dir=config["logging"]["logging_dir"])
+        train_logger = TensorBoardLogger(name=run_name, save_dir=logging_dir)
 
     trainer = pl.Trainer(
         logger=train_logger,

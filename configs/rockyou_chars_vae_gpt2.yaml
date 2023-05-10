@@ -1,11 +1,11 @@
 run: &RUN_NAME rockyou_gpt2_vae
 
-data_path: &DATA_PATH ~/password_generation/data/rockyou.txt
-logging_dir: &LOGGING_DIR ~/password_generation/logging/
-checkpoints_dir: &CHECKPOINTS_DIR ~/password_generation/checkpoints/
+data_path: &DATA_PATH data/rockyou.txt
+logging_dir: &LOGGING_DIR logging/
+checkpoints_dir: &CHECKPOINTS_DIR checkpoints/
 batch_size: &BATCH_SIZE 128
 max_epochs: &MAX_EPOCHS 20
-max_size: &MAX_SIZE null
+max_size: &MAX_SIZE 10000
 in_memory: &IN_MEMORY True
 use_cache: &USE_CACHE True
 learning_rate: &LEARNING_RATE 1.0
@@ -87,3 +87,8 @@ model:
 trainer:
   args:
     max_epochs: *MAX_EPOCHS
+
+
+logging:
+  use_wandb: False
+  logging_dir: *LOGGING_DIR
