@@ -22,9 +22,7 @@ class CharTokenizer(Tokenizer):
         self.char_to_index: Dict[char, int] = self.init_char_to_index_mapping(characters)
 
         self.add_sos_and_eos = add_sos_and_eos
-        self.unk_token = unk_token
-        self.unk_index = len(self.char_to_index)
-        self.char_to_index[self.unk_token] = self.unk_index
+
         self.sos_token = sos_token
         self.sos_index = len(self.char_to_index)
         self.char_to_index[self.sos_token] = self.sos_index
@@ -34,6 +32,8 @@ class CharTokenizer(Tokenizer):
         self.pad_token = pad_token
         self.pad_index = len(self.char_to_index)
         self.char_to_index[self.pad_token] = self.pad_index
+        self.unk_token = unk_token
+        self.unk_index = len(self.char_to_index)
 
         self.index_to_char: List[char] = self.init_index_to_char_mapping(self.char_to_index)
 

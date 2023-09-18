@@ -34,7 +34,7 @@ dataloader:
       class: CharTokenizer
       args: {}
     filter_config: null
-    max_sequence_length: 14
+    max_sequence_length: 13
     batch_size: *BATCH_SIZE
     use_cache: *USE_CACHE
     in_memory: *IN_MEMORY

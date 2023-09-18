@@ -68,6 +68,8 @@ def generate_from_config(config: Dict, args: argparse.Namespace) -> None:
     checkpoint = torch.load(args.model, map_location="cpu")
 
     model.load_state_dict(checkpoint["state_dict"])
+    if not args.no_cuda:
+        model.cuda()
 
     with open(args.output, "w") as f:
         for batch in generate_passwords(model, tokenizer, n=args.num_passwords, batch_size=args.batch_size):

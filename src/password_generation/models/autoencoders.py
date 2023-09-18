@@ -76,7 +76,7 @@ class AE(Model):
         if isinstance(encoder, dict):
             self.encoder = create_instance(
                 encoder,
-                vocab_dim=self.vocab_dim,
+                vocab_dim=self.vocab_dim + 1,
                 max_sequence_length=self.max_sequence_length,
                 latent_dim=self.latent_dim,
                 sos_index=self.sos_index,

@@ -18,5 +18,5 @@ finally:
 
 base_path = os.path.dirname(os.path.abspath(__file__))
 project_path = os.path.abspath(os.path.join(base_path, "..", ".."))
-test_data_file = os.path.join(project_path, "data", "tmp", "rockyou_test.txt")
+test_data_file = os.path.join(project_path, "data", "tmp", "rockyou_test_mini.txt")
 tokenizer_vocab_file = os.path.join(project_path, "data", "tokenizers", "bert-base-cased.txt")
